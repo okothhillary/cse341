@@ -1,0 +1,12 @@
+### Get all contacts
+GET http://localhost:3000/contacts
+
+### Get a single contact (Hillary Okoth)
+GET http://localhost:3000/contacts/681b9f2d41806c1d26b2cd19
+
+### Get a single contact (Cymona Lalampaa)
+GET http://localhost:3000/contacts/681ba1a241806c1d26b2cd1a
+
+### Get a single contact (Zemdegs Laxman)
+GET http://localhost:3000/contacts/681ba1ec41806c1d26b2cd1b
+
