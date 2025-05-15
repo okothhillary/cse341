@@ -10,3 +10,31 @@ GET http://localhost:3000/contacts/681ba1a241806c1d26b2cd1a
 ### Get a single contact (Zemdegs Laxman)
 GET http://localhost:3000/contacts/681ba1ec41806c1d26b2cd1b
 
+### Create a new contact
+POST http://localhost:3000/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Zipporah",
+  "lastName": "Wangari",
+  "email": "zippy.lovelace@example.com",
+  "favoriteColor": "green",
+  "birthday": "1999-12-10"
+}
+
+
+
+### Update contact (Hillary Okoth)
+PUT http://localhost:3000/contacts/681b9f2d41806c1d26b2cd19
+Content-Type: application/json
+
+{
+  "firstName": "Hillary",
+  "lastName": "Okoth",
+  "email": "hillarywokoth@gmail.com",
+  "favoriteColor": "red",
+  "birthday": "1999-01-12"
+}
+
+### Delete a contact (Zemdegs Laxman)
+DELETE http://localhost:3000/contacts/681ba1ec41806c1d26b2cd1b
