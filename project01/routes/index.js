@@ -1,10 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('May Node be with you!');
+router.use("/", require("./swagger"));
+
+router.get("/", (req, res) => {
+  //#swagger.tags=['May Node be with you!']
+  res.send("May Node be with you!");
 });
 
-router.use('/contacts', require('./contacts'));
+router.use("/contacts", require("./contacts"));
 
 module.exports = router;
