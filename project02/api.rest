@@ -1,0 +1,102 @@
+### Get all books
+GET http://localhost:3000/books
+
+### Get a single book (replace with a valid ObjectId)
+GET http://localhost:3000/books/
+
+### Create a new book
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "publishedYear": 2008,
+  "genre": "Programming",
+  "isbn": "9780132350884",
+  "language": "English",
+  "pages": 464
+}
+
+### Create another new book
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "title": "Atomic Habits",
+  "author": "James Clear",
+  "publishedYear": 2018,
+  "genre": "Self-help",
+  "isbn": "9780735211292",
+  "language": "English",
+  "pages": 320
+}
+
+### Update an existing book (replace with a valid ObjectId)
+PUT http://localhost:3000/books/664e9fe5c1a69c9c3f123abc
+Content-Type: application/json
+
+{
+  "title": "Clean Code (Updated Edition)",
+  "author": "Robert C. Martin",
+  "publishedYear": 2010,
+  "genre": "Software Engineering",
+  "isbn": "9780132350884",
+  "language": "English",
+  "pages": 500
+}
+
+### Delete a book (replace with a valid ObjectId)
+DELETE http://localhost:3000/books/664e9fe5c1a69c9c3f123abc
+
+
+### Get all authors
+GET http://localhost:3000/authors
+
+### Get a single author (replace with a valid ObjectId)
+GET http://localhost:3000/authors/664ea7c8c1a69c9c3f123def
+
+### Create a new author
+POST http://localhost:3000/authors
+Content-Type: application/json
+
+{
+  "firstName": "Brandon",
+  "lastName": "Sanderson",
+  "birthYear": 1975,
+  "nationality": "American",
+  "genre": "Fantasy",
+  "notableWorks": ["Mistborn", "Stormlight Archive"],
+  "awards": ["Hugo Award"]
+}
+
+### Create another new author
+POST http://localhost:3000/authors
+Content-Type: application/json
+
+{
+  "firstName": "Chimamanda",
+  "lastName": "Ngozi Adichie",
+  "birthYear": 1977,
+  "nationality": "Nigerian",
+  "genre": "Literary fiction",
+  "notableWorks": ["Half of a Yellow Sun", "Americanah"],
+  "awards": ["Orange Prize", "National Book Critics Circle Award"]
+}
+
+### Update an author (replace with a valid ObjectId)
+PUT http://localhost:3000/authors/664ea7c8c1a69c9c3f123def
+Content-Type: application/json
+
+{
+  "firstName": "Brandon",
+  "lastName": "Sanderson",
+  "birthYear": 1975,
+  "nationality": "American",
+  "genre": "Epic Fantasy",
+  "notableWorks": ["Mistborn", "Stormlight Archive", "Elantris"],
+  "awards": ["Hugo Award", "David Gemmell Legend Award"]
+}
+
+### Delete an author (replace with a valid ObjectId)
+DELETE http://localhost:3000/authors/664ea7c8c1a69c9c3f123def
