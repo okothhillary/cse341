@@ -1,5 +1,5 @@
 const mongodb = require("../data/database");
-const ObjectId = require("mongodb").ObjectId;
+const { ObjectId } = require("mongodb");
 
 // GET all contacts
 const getAll = async (req, res) => {
@@ -14,7 +14,12 @@ const getAll = async (req, res) => {
 // GET one contact by ID
 const getSingle = async (req, res) => {
   //#swagger.tags=['contacts']
-  const contactId = ObjectId.createFromHexString(req.params.id);
+  const id = req.params.id;
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json("Invalid contact ID" );
+  }
+
+  const contactId = ObjectId.createFromHexString(id);
   const result = await mongodb
     .getDatabase()
     .db()
@@ -64,7 +69,12 @@ const createContact = async (req, res) => {
 // PUT (update) contact
 const updateContact = async (req, res) => {
   //#swagger.tags=['contacts']
-  const contactId = ObjectId.createFromHexString(req.params.id);
+  const id = req.params.id;
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid contact ID" });
+  }
+
+  const contactId = ObjectId.createFromHexString(id);
   const contact = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -95,7 +105,12 @@ const updateContact = async (req, res) => {
 // DELETE contact
 const deleteContact = async (req, res) => {
   //#swagger.tags=['contacts']
-  const contactId = ObjectId.createFromHexString(req.params.id);
+  const id = req.params.id;
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid contact ID" });
+  }
+
+  const contactId = ObjectId.createFromHexString(id);
 
   try {
     const result = await mongodb
