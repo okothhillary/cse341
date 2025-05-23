@@ -4,11 +4,14 @@ const { ObjectId } = require("mongodb");
 // GET all books
 const getAll = async (req, res) => {
   //#swagger.tags=['books']
-  const result = await mongodb.getDatabase().db().collection("books").find();
-  result.toArray().then((books) => {
+  try {
+    const result = await mongodb.getDatabase().db().collection("books").find();
+    const books = await result.toArray();
     res.setHeader("Content-Type", "application/json");
     res.status(200).json(books);
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // GET one book by ID
@@ -19,17 +22,20 @@ const getSingle = async (req, res) => {
     return res.status(400).json("Invalid book ID");
   }
 
-  const bookId = ObjectId.createFromHexString(id);
-  const result = await mongodb.getDatabase().db().collection("books").find({ _id: bookId });
+  try {
+    const bookId = ObjectId.fromHexString(id);
+    const result = await mongodb.getDatabase().db().collection("books").find({ _id: bookId });
+    const books = await result.toArray();
 
-  result.toArray().then((books) => {
     if (books.length > 0) {
       res.setHeader("Content-Type", "application/json");
       res.status(200).json(books[0]);
     } else {
       res.status(404).json({ message: "Book not found" });
     }
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // POST (create) book
@@ -63,7 +69,6 @@ const updateBook = async (req, res) => {
     return res.status(400).json({ message: "Invalid book ID" });
   }
 
-  const bookId = ObjectId.createFromHexString(id);
   const { title, author, publishedYear, genre, isbn, language, pages } = req.body;
 
   if (!title || !author || !publishedYear || !genre || !isbn || !language || !pages) {
@@ -73,6 +78,7 @@ const updateBook = async (req, res) => {
   const updatedBook = { title, author, publishedYear, genre, isbn, language, pages };
 
   try {
+    const bookId = ObjectId.fromHexString(id);
     const result = await mongodb.getDatabase().db().collection("books").replaceOne({ _id: bookId }, updatedBook);
     if (result.modifiedCount > 0) {
       return res.status(204).send();
@@ -92,9 +98,8 @@ const deleteBook = async (req, res) => {
     return res.status(400).json({ message: "Invalid book ID" });
   }
 
-  const bookId = ObjectId.createFromHexString(id);
-
   try {
+    const bookId = ObjectId.fromHexString(id);
     const result = await mongodb.getDatabase().db().collection("books").deleteOne({ _id: bookId });
     if (result.deletedCount > 0) {
       return res.status(204).send();

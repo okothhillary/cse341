@@ -4,11 +4,14 @@ const { ObjectId } = require("mongodb");
 // GET all authors
 const getAll = async (req, res) => {
   //#swagger.tags=['authors']
-  const result = await mongodb.getDatabase().db().collection("authors").find();
-  result.toArray().then((authors) => {
+  try {
+    const result = await mongodb.getDatabase().db().collection("authors").find();
+    const authors = await result.toArray();
     res.setHeader("Content-Type", "application/json");
     res.status(200).json(authors);
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // GET one author by ID
@@ -19,17 +22,20 @@ const getSingle = async (req, res) => {
     return res.status(400).json("Invalid author ID");
   }
 
-  const authorId = ObjectId.createFromHexString(id);
-  const result = await mongodb.getDatabase().db().collection("authors").find({ _id: authorId });
+  try {
+    const authorId = ObjectId.fromHexString(id);
+    const result = await mongodb.getDatabase().db().collection("authors").find({ _id: authorId });
+    const authors = await result.toArray();
 
-  result.toArray().then((authors) => {
     if (authors.length > 0) {
       res.setHeader("Content-Type", "application/json");
       res.status(200).json(authors[0]);
     } else {
       res.status(404).json({ message: "Author not found" });
     }
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // POST author
@@ -71,7 +77,6 @@ const updateAuthor = async (req, res) => {
     return res.status(400).json({ message: "Invalid author ID" });
   }
 
-  const authorId = ObjectId.createFromHexString(id);
   const { firstName, lastName, birthYear, nationality, genre, notableWorks, awards } = req.body;
 
   if (!firstName || !lastName || !birthYear || !nationality || !genre || !Array.isArray(notableWorks) || !Array.isArray(awards)) {
@@ -89,6 +94,7 @@ const updateAuthor = async (req, res) => {
   };
 
   try {
+    const authorId = ObjectId.fromHexString(id);
     const result = await mongodb.getDatabase().db().collection("authors").replaceOne({ _id: authorId }, updatedAuthor);
     if (result.modifiedCount > 0) {
       return res.status(204).send();
@@ -108,9 +114,8 @@ const deleteAuthor = async (req, res) => {
     return res.status(400).json({ message: "Invalid author ID" });
   }
 
-  const authorId = ObjectId.createFromHexString(id);
-
   try {
+    const authorId = ObjectId.fromHexString(id);
     const result = await mongodb.getDatabase().db().collection("authors").deleteOne({ _id: authorId });
     if (result.deletedCount > 0) {
       return res.status(204).send();
