@@ -1,5 +1,4 @@
 const dotenv = require("dotenv");
-const { init } = require("next/dist/compiled/webpack/webpack");
 dotenv.config();
 const MongoClient = require("mongodb").MongoClient;
 
