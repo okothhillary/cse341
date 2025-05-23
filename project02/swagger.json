@@ -5,7 +5,7 @@
     "description": "REST API for managing books and authors collections",
     "version": "1.0.0"
   },
-  "host": "cse341-y7r4.onrender.com",
+  "host": "project02-1rgn.onrender.com",
   "basePath": "/",
   "tags": [
     {
