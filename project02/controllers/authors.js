@@ -23,7 +23,7 @@ const getSingle = async (req, res) => {
   }
 
   try {
-    const authorId = ObjectId.fromHexString(id);
+    const authorId = ObjectId.createFromHexString(id);
     const result = await mongodb.getDatabase().db().collection("authors").find({ _id: authorId });
     const authors = await result.toArray();
 
@@ -94,7 +94,7 @@ const updateAuthor = async (req, res) => {
   };
 
   try {
-    const authorId = ObjectId.fromHexString(id);
+    const authorId = ObjectId.createFromHexString(id);
     const result = await mongodb.getDatabase().db().collection("authors").replaceOne({ _id: authorId }, updatedAuthor);
     if (result.modifiedCount > 0) {
       return res.status(204).send();
@@ -115,7 +115,7 @@ const deleteAuthor = async (req, res) => {
   }
 
   try {
-    const authorId = ObjectId.fromHexString(id);
+    const authorId = ObjectId.createFromHexString(id);
     const result = await mongodb.getDatabase().db().collection("authors").deleteOne({ _id: authorId });
     if (result.deletedCount > 0) {
       return res.status(204).send();

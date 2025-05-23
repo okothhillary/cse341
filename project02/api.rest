@@ -2,7 +2,7 @@
 GET http://localhost:3000/books
 
 ### Get a single book (replace with a valid ObjectId)
-GET http://localhost:3000/books/
+GET http://localhost:3000/books/68308b4824ee717cab73ca7a
 
 ### Create a new book
 POST http://localhost:3000/books
