@@ -5,7 +5,7 @@ router.use("/api-docs", require("./swagger"));
 
 router.get("/", (req, res) => {
   //#swagger.tags=['Welcome']
-  res.send("May Node be with the Books & Authors API!");
+  res.send("May Node be with the Books & Authors API");
 });
 
 router.use("/books", require("./books"));
