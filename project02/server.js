@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 const port = process.env.PORT || 3000;
-const allowedOrigin = 'http://localhost:3000';
+const allowedOrigin = 'https://project02-1rgn.onrender.com';
 
 // Middleware
 app.use(express.json());
