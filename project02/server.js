@@ -65,6 +65,8 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+// Login route
+app.get('/login', passport.authenticate('github'));
 
 // Root route
 app.get("/", (req, res) => {
@@ -83,23 +85,6 @@ app.get(
     res.redirect("/");
   }
 );
-
-
-
-
-app.get("/api/whoami", (req, res) => {
-  if (req.user) {
-    res.status(200).json({
-      message: "Authenticated",
-      user: {
-        id: req.user.id,
-        name: req.user.displayName || req.user.username,
-      },
-    });
-  } else {
-    res.status(401).json({ message: "Not authenticated" });
-  }
-});
 
 // Swagger UI
 app.use(
