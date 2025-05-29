@@ -7,14 +7,12 @@ const { isAuthenticated } = require("../middleware/authenticate");
 
 router.get(
   "/",
-  isAuthenticated,
   booksController.getAll
 );
 
 
 router.get(
-  "/:id",
-  isAuthenticated,  
+  "/:id",  
   booksController.getSingle
 );
 
