@@ -3,7 +3,6 @@ const { ObjectId } = require("mongodb");
 
 // GET all books
 const getAll = async (req, res) => {
-  //#swagger.tags=['books']
   try {
     const result = await mongodb.getDatabase().db().collection("books").find();
     const books = await result.toArray();
@@ -16,7 +15,6 @@ const getAll = async (req, res) => {
 
 // GET one book by ID
 const getSingle = async (req, res) => {
-  //#swagger.tags=['books']
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json("Invalid book ID");
@@ -44,7 +42,6 @@ const getSingle = async (req, res) => {
 
 // POST (create) book
 const createBook = async (req, res) => {
-  //#swagger.tags=['books']
   const { title, author, publishedYear, genre, isbn, language, pages } =
     req.body;
 
@@ -90,7 +87,6 @@ const createBook = async (req, res) => {
 
 // PUT (update) book
 const updateBook = async (req, res) => {
-  //#swagger.tags=['books']
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid book ID" });
@@ -142,7 +138,6 @@ const updateBook = async (req, res) => {
 
 // DELETE book
 const deleteBook = async (req, res) => {
-  //#swagger.tags=['books']
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid book ID" });

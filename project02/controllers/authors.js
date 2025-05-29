@@ -3,7 +3,6 @@ const { ObjectId } = require("mongodb");
 
 // GET all authors
 const getAll = async (req, res) => {
-  //#swagger.tags=['authors']
   try {
     const result = await mongodb.getDatabase().db().collection("authors").find();
     const authors = await result.toArray();
@@ -16,7 +15,6 @@ const getAll = async (req, res) => {
 
 // GET one author by ID
 const getSingle = async (req, res) => {
-  //#swagger.tags=['authors']
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json("Invalid author ID");
@@ -40,7 +38,6 @@ const getSingle = async (req, res) => {
 
 // POST author
 const createAuthor = async (req, res) => {
-  //#swagger.tags=['authors']
   const { firstName, lastName, birthYear, nationality, genre, notableWorks, awards } = req.body;
 
   if (!firstName || !lastName || !birthYear || !nationality || !genre || !Array.isArray(notableWorks) || !Array.isArray(awards)) {
@@ -71,7 +68,6 @@ const createAuthor = async (req, res) => {
 
 // PUT author
 const updateAuthor = async (req, res) => {
-  //#swagger.tags=['authors']
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid author ID" });
@@ -108,7 +104,6 @@ const updateAuthor = async (req, res) => {
 
 // DELETE author
 const deleteAuthor = async (req, res) => {
-  //#swagger.tags=['authors']
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid author ID" });
